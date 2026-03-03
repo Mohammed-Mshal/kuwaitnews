@@ -17,7 +17,7 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin);
     <div class="min-h-screen bg-white text-black">
         <AppNavbar />
         <slot />
-        <AppFooter />
+        <!-- <AppFooter /> -->
         <AppErrorModal :is-open="isErrorModalOpen" :error="errorData" @close="hideError" />
         <AppSearchModal :is-open="isSearchModalOpen" @close="hideSearch" />
     </div>
