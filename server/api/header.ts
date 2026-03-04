@@ -1,6 +1,6 @@
 export default defineEventHandler(async (event) => {
   return {
-    logo: 'http://localhost:3000/img/logo-header.svg',
+    logo: '/img/logo-header.svg',
     links: [
       {
         link: '/',
