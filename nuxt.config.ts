@@ -11,13 +11,18 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'KUWAITNEWS',
+      script: [
+        {
+          src: '/js/bootstrap.bundle.min.js'
+        },
+      ],
       htmlAttrs: {
         lang: 'ar',
         dir: 'rtl'
       }
     },
   },
-  css: ['@/assets/css/stylesheet.css', '@/assets/css/main.css'],
+  css: ['@/assets/css/bootstrap.min.css', '@/assets/css/stylesheet.css', '@/assets/css/main.css'],
   plugins: [
     '@/plugins/axios.ts'
   ],
@@ -43,7 +48,6 @@ export default defineNuxtConfig({
   },
   modules: [
     '@nuxtjs/i18n',
-    '@nuxtjs/tailwindcss',
     'nuxt-lucide-icons',
     '@pinia/nuxt',
     '@nuxt/image'

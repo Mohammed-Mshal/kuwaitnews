@@ -25,10 +25,14 @@ onMounted(() => {
                     mainHeader.value?.classList.remove('scrolled');
                 }
             },
-            onComplete() {
-                mainHeader.value?.classList.add('scrolled');
-            }
         });
+        const handleResize = () => {
+            ScrollTrigger.update()
+        }
+        window.addEventListener('resize', handleResize)
+        onBeforeUnmount(() => {
+            window.removeEventListener('resize', handleResize)
+        })
     }
 })
 </script>
@@ -190,6 +194,7 @@ onMounted(() => {
                         padding: 0;
                         height: 16px;
                         width: 16px;
+                        display: flex;
 
                         img {
                             width: 100%;
@@ -241,6 +246,8 @@ onMounted(() => {
                         font-weight: 500;
                         transition: .3s all ease-in-out;
                         padding: 0;
+                        background: none;
+                        border: none;
 
                         &:hover {
                             color: var(--light-blue);

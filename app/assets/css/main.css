@@ -1579,7 +1579,7 @@ body {
 
 .watch-now {
   padding-top: 72px;
-  background: var(--mid-blue) url(../img/layer_1.svg) top left repeat-x;
+  background: var(--mid-blue) url(/img/layer_1.svg) top left repeat-x;
 }
 
 .watch-now .container {
@@ -2926,7 +2926,7 @@ footer {
 }
 
 footer .wrapper-footer {
-  background: var(--mid-blue) url(../img/footer-line-repeat.svg) top left repeat-x;
+  background: var(--mid-blue) url(/img/footer-line-repeat.svg) top left repeat-x;
   padding-top: 45px;
 }
 
@@ -3084,7 +3084,7 @@ footer .wrapper-footer .top-footer .links-mobile .accordion-title::after {
   display: inline-block;
   width: 14px;
   height: 14px;
-  background: url(../img/down-arrow.svg) no-repeat center/cover;
+  background: url(/img/down-arrow.svg) no-repeat center/cover;
   position: absolute;
   right: 0;
   top: 50%;

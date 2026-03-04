@@ -74,9 +74,9 @@ onBeforeUnmount(() => {
       enter-from-class="opacity-0 backdrop-blur-none" enter-to-class="opacity-100 backdrop-blur-sm"
       leave-active-class="transition-opacity duration-200 ease-in"
       leave-from-class="opacity-100 bg-black/20 backdrop-blur-sm" leave-to-class="opacity-0 backdrop-blur-none">
-      <div v-if="isOpen" :class="`fixed top-0 left-0 flex items-center justify-center bg-transparent ${rootClass}`">
+      <div v-if="isOpen" :class="`${rootClass}`">
         <!-- Backdrop -->
-        <div :class="`absolute inset-0 z-20 backdrop-blur-sm bg-black/20  ${backdropClass}`"
+        <div :class="`overlay  ${backdropClass}`"
           @click="handleBackdropClick" />
 
         <!-- Modal Content -->
@@ -84,7 +84,7 @@ onBeforeUnmount(() => {
           enter-from-class="opacity-0 scale-95 translate-y-4" enter-to-class="opacity-100 scale-100 translate-y-0"
           leave-active-class="transition-all duration-200 ease-in"
           leave-from-class="opacity-100 scale-100 translate-y-0" leave-to-class="opacity-0 scale-95 translate-y-4">
-          <div v-if="isOpen" :class="`absolute inset-0! z-30 w-fit ${modalClass}`" @click.stop>
+          <div v-if="isOpen" :class="` ${modalClass}`" @click.stop>
             <!-- Slot for modal content -->
             <slot />
           </div>

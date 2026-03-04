@@ -482,7 +482,7 @@ onMounted(() => {
                 <img src="/img/LinkedIn.svg" alt="LinkedIn">
               </a>
               <a href="#">
-                <img src="/img/X_logo_2023_original 1.svg" alt="X logo">
+                <img src="/img/X_logo_2023_original1.svg" alt="X logo">
               </a>
               <a href="#">
                 <img src="/img/Facebook.svg" alt="facebook">
@@ -666,7 +666,7 @@ onMounted(() => {
               display: inline-block;
               width: 14px;
               height: 14px;
-              background: url(../img/down-arrow.svg) no-repeat center/cover;
+              background: url(/img/down-arrow.svg) no-repeat center/cover;
               position: absolute;
               right: 0;
               top: 50%;
