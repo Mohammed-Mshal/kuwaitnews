@@ -2,7 +2,6 @@ import type { FeaturesNews } from "~/types/featureNews.type"
 import type { BreakingNewsItem, KuwaitNews } from "~/types/home.type"
 import type { SecondaryNewsItem } from "~/types/secondaryNews.type"
 import { useAppStore } from "./app"
-import { useHomeApi } from "~/composables/app/useHomeApi"
 
 export const useMyHomeStore = defineStore('myHomeStore', {
   state: () => {
@@ -19,22 +18,26 @@ export const useMyHomeStore = defineStore('myHomeStore', {
   actions: {
     async loadHomeData() {
       if (this.initialized) return true
-      const { loadHomeData } = useHomeApi()
       const errorStore = useErrorModal()
       const appStore = useAppStore()
       appStore.isLoading = true
       try {
-        const data = await loadHomeData()
-        this.featuresNews = data.featuresNews
-        this.secondaryNews = data.secondaryNews
-        this.breakingNews = data.breakingNews
-        this.kuwaitnews = data.kuwaitnews
+        const [breakingNews, featuresNews, secondaryNews, kuwaitnews] = await Promise.all([
+          $fetch<BreakingNewsItem[]>('/api/breakingNews'),
+          $fetch<FeaturesNews>('/api/featureNews'),
+          $fetch<SecondaryNewsItem[]>('/api/secondaryNews'),
+          $fetch<KuwaitNews[]>('/api/kuwaitnews')
+        ])
+        this.featuresNews = featuresNews
+        this.secondaryNews = secondaryNews
+        this.breakingNews = breakingNews
+        this.kuwaitnews = kuwaitnews
         this.initialized = true
         return true
       } catch (error) {
         errorStore.showErrorModal(error)
         this.error = (error as { message: string })?.message
-      }finally {
+      } finally {
         appStore.isLoading = false
       }
     }
