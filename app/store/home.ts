@@ -1,8 +1,8 @@
 import type { FeaturesNews } from "~/types/featureNews.type"
 import type { BreakingNewsItem, KuwaitNews } from "~/types/home.type"
 import type { SecondaryNewsItem } from "~/types/secondaryNews.type"
-import { useHomeApi } from "~/composables/app/useHomeApi"
 import { useAppStore } from "./app"
+import { useHomeApi } from "~/composables/app/useHomeApi"
 
 export const useMyHomeStore = defineStore('myHomeStore', {
   state: () => {
