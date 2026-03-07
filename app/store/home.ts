@@ -1,12 +1,14 @@
 import type { FeaturesNews } from "~/types/featureNews.type"
 import type { BreakingNewsItem, KuwaitNews } from "~/types/home.type"
 import type { SecondaryNewsItem } from "~/types/secondaryNews.type"
+import { useHomeApi } from "~/composables/app/useHomeApi"
+import { useAppStore } from "./app"
 
 export const useMyHomeStore = defineStore('myHomeStore', {
   state: () => {
     return {
-      isLoading: false,
-      error: null,
+      initialized: false,
+      error: null as string | null,
       featuresNews: null as FeaturesNews | null,
       secondaryNews: null as SecondaryNewsItem[] | null,
       breakingNews: null as BreakingNewsItem[] | null,
@@ -15,25 +17,26 @@ export const useMyHomeStore = defineStore('myHomeStore', {
     }
   },
   actions: {
-    async getBreakingNews() {
-      const breakingNews = await useApi<BreakingNewsItem[]>('/api/breakingNews')
-      this.breakingNews = breakingNews
-      return breakingNews
-    },
-    async getFeaturesNews() {
-      const featuresNews = await useApi<FeaturesNews>('/api/featureNews')
-      this.featuresNews = featuresNews
-      return featuresNews
-    },
-    async getSecondaryNews() {
-      const secondaryNews = await useApi<SecondaryNewsItem[]>('/api/secondaryNews')
-      this.secondaryNews = secondaryNews
-      return secondaryNews
-    },
-    async getKuwaitNews() {
-      const kuwaitnews = await useApi<KuwaitNews[]>('/api/kuwaitnews')
-      this.kuwaitnews = kuwaitnews
-      return kuwaitnews
-    },
+    async loadHomeData() {
+      if (this.initialized) return true
+      const { loadHomeData } = useHomeApi()
+      const errorStore = useErrorModal()
+      const appStore = useAppStore()
+      appStore.isLoading = true
+      try {
+        const data = await loadHomeData()
+        this.featuresNews = data.featuresNews
+        this.secondaryNews = data.secondaryNews
+        this.breakingNews = data.breakingNews
+        this.kuwaitnews = data.kuwaitnews
+        this.initialized = true
+        return true
+      } catch (error) {
+        errorStore.showErrorModal(error)
+        this.error = (error as { message: string })?.message
+      }finally {
+        appStore.isLoading = false
+      }
+    }
   }
 })

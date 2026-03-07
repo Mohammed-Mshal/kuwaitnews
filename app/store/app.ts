@@ -5,21 +5,35 @@ export const useAppStore = defineStore('app', {
     state: () => {
         return {
             isLoading: false,
-            error: null,
+            initialized: false,
+            error: null as string | null,
             bannersHome: null as HomeBanner | null,
             header: null as Header | null,
-            headersState: [],
-            footerState: []
+            footer: [],
+
         }
     },
     actions: {
         async initialApp() {
-            const [bannersHome, header] = await Promise.all([
-                useApi<HomeBanner>('/api/banners'),
-                useApi<Header>('/api/header'),
-            ])
-            this.bannersHome = bannersHome
-            this.header = header
+            if (this.initialized) return true
+            const errorStore = useErrorModal()
+            this.isLoading = true
+            try {
+                const [bannersHome, header] = await Promise.all([
+                    $fetch<HomeBanner>('/api/banners'),
+                    $fetch<Header>('/api/header'),
+                ])
+                this.bannersHome = bannersHome
+                this.header = header
+                this.initialized = true
+                return true
+            } catch (error) {
+                errorStore.showErrorModal(error)
+                this.error = (error as { message: string })?.message
+            }
+            finally {
+                this.isLoading = false
+            }
         }
     }
 })
